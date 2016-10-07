@@ -1,0 +1,340 @@
+Introduction to R and RStudio
+========================================================
+author: Sofia M. Danna
+date: 7 October 2016
+
+
+Overview
+========================================================
+- Motivation + musings
+- Materials
+- Getting started
+- Basic commands
+- Packages
+- Sample analysis
+- Graphics
+- Resources for learning on your own
+
+Musings on the nature of R
+========================================================
+Open source
+
+- free to download, use, distribute, and **expand on**
+
+"In essense, Stata is pretty much statistical software that has a command line. R is a statistical programming language."
+([reddit](https://www.reddit.com/r/statistics/comments/55neu0/stata_or_r/))
+
+- flexibility: can easily write functions and packages
+
+When you get stuck, remember the answer you are looking for is sitting somewhere in the internet. 
+
+- Google and [Stack Overflow](http://stackoverflow.com/) are your friends.
+
+Visual musings
+========================================================
+
+![R packages released over time](Rpack.png) 
+
+via [r-bloggers.com](https://www.r-bloggers.com/on-the-growth-of-cran-packages/)
+
+[R now has 150 **times** more commands than SAS](http://www.statsblogs.com/2015/05/22/r-now-contains-150-times-as-many-commands-as-sas/)
+
+Materials
+========================================================
+All materials for this presentation are available on [Github](https://github.com/smdanna)
+
+- Presentation available under R-workshop
+
+- Code used for Whitehall II study
+
+- Other code I want to find easily
+
+Getting started
+========================================================
+- Install and open R and RStudio 
+
+- Explore RStudio
+
+  + create project
+  
+  + new file
+
+R as calculator
+========================================================
+
+```r
+2+4
+```
+
+```
+[1] 6
+```
+assign value to an object
+
+```r
+apple <- 2+4
+bee <- 7**3
+```
+print the value of these objects
+
+shortcut for "`<-`"  
+- Option + - on Mac
+- Alt + - on Windows or Linux ([keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)) 
+R as calculator
+========================================================
+
+
+```r
+3*apple+cos(89^2)/bee
+```
+
+```
+[1] 17.99854
+```
+change apple and recalculate
+
+```r
+apple <- 42
+3*apple+cos(89^2)/bee
+```
+
+```
+[1] 125.9985
+```
+
+Basic commands - documentation, execution, tab completion
+========================================================
+NO NEED TO MEMORIZE ANYTHING
+
+* `help()` and `?command`
+
+* To execute code:
+  + Control + Enter to execute line-by-line
+  + highlight what you want to run, then Control + Enter
+  + click Run button
+
+* tab completion
+
+* `"", (), [], {}`
+ 
+Basic commands - comments and headings
+========================================================
+`# comment and label code with a hashtag, not unlike Twitter`
+
+create a collapsible heading in several ways
+
+`# Title 1 ####`
+
+`## Title 2 ####`
+
+`# Title 3 ----`
+
+`## Title 4 ----`
+
+Basic commands - vectors
+========================================================
+* create vectors
+
+```r
+cars <- c(3,1,91,1,0)
+cars
+```
+
+```
+[1]  3  1 91  1  0
+```
+
+```r
+names  <- c("merkel", "the pope", "kardashian", "norbert", "sofia")
+spicy  <- c(.1, .01, .5, .3, .85) 
+dog  <- c(NA, 0, NA, NA, 0)
+```
+Basic commands - dataframe
+========================================================
+* create dataframe
+
+```r
+ppl <- data.frame(names, cars, spicy, dog)
+ppl
+```
+
+```
+       names cars spicy dog
+1     merkel    3  0.10  NA
+2   the pope    1  0.01   0
+3 kardashian   91  0.50  NA
+4    norbert    1  0.30  NA
+5      sofia    0  0.85   0
+```
+
+```r
+View(ppl)
+```
+Basic commands - indexing
+========================================================
+`dataframe$column_name`
+
+`dataframe[row,column]`
+
+`ppl` example
+
+
+[many more possibilities!](ftp://cran.r-project.org/pub/R/doc/contrib/Short-refcard.pdf)
+
+
+Basic commands - adding, removing
+========================================================
+remove objects from environment
+
+```r
+rm(apple, bee)
+```
+remove column from dataframe
+
+```r
+ppl$dog <- NULL
+```
+add column to dataframe
+
+```r
+ppl$cat <- c(NA, NA, NA, NA, 0)
+View(ppl)
+```
+Basic commands - checking out data
+========================================================
+`summary() #summary of variables in dataframe`
+
+`str()  #structure of object`
+
+`attributes() #attributes of object`
+
+`names() #of columns`
+
+`sum()`
+
+`mean()`
+
+`sd() #standard deviation`
+
+
+Downloading packages
+========================================================
+
+Lots of what you will want to use will be in packages.
+
+First, check out packages you already have.
+
+`install.packages('package.name')`
+
+`library()`
+
+Sample analysis
+========================================================
+
+```r
+data()
+```
+
+
+
+```r
+View(Titanic)
+```
+
+
+Epidemiology of a shipwreck
+========================================================
+Was it really "women and children first"? 
+
+What about class?
+
+- Import the csv dataset
+
+- Let's check out the data!
+
+Epidemiology of a shipwreck
+========================================================
+Proportions of people who survived, by group
+
+```r
+|---------|-----------------------------|
+| Overall | .323                        |
+|---------|-----------------------------|
+| Sex     | Female        | Male        |
+|         | .732          | .212        |
+|---------|-----------------------------|
+| Age     | Adult         | Child       |
+|         | .313          | .523        |
+|---------|-----------------------------|
+| Class   |  1st  | 2nd   | 3rd  | Crew |
+|         | .625  | .414  | .252 | .240 |
+|---------|-----------------------------|
+```
+
+Epidemiology of a shipwreck
+========================================================
+![alt text](titanic.tab1.jpeg)
+
+Epidemiology of a shipwreck
+========================================================
+Roses are red, 
+
+Violets are blue,
+
+Epidemiological data analysis just ain't right
+
+Without a regression or two.
+
+
+```r
+oops <- glm(titanic$Survived ~ titanic$Class + titanic$Sex + titanic$Age, family=binomial)
+```
+
+Epidemiology of a shipwreck
+========================================================
+
+```r
+$OR
+titanic$Class2   0.36128255  
+titanic$Class3  0.16901595   
+titanic$ClassCrew   0.42414659  
+titanic$SexMale   0.08891625  
+titanic$AgeChild  2.89082629 
+
+$OR.ci
+           [,1]      [,2]
+[1,] 0.24604475 0.5304933
+[2,] 0.12075099 0.2365727
+[3,] 0.31159399 0.5773549
+[4,] 0.06752499 0.1170841
+[5,] 1.79187527 4.6637603
+```
+Graphics - simple
+========================================================
+Can be basic...
+
+![plot of chunk unnamed-chunk-15](7Oct16-figure/unnamed-chunk-15-1.png) 
+
+Graphics - complex
+========================================================
+...or [gorgeous](https://www.google.ca/search?q=ggplot2+gallery&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjSmeWK3sTPAhVIOD4KHXu9A_4Q_AUICCgB&biw=1391&bih=611#tbm=isch&q=ggplot2).
+
+If you want quality graphics, use ggplot2 package
+
+[Illustrated ggplot2 examples, with code](http://docs.ggplot2.org/current/)
+
+Graphics - example
+========================================================
+![alt text](titanic.plot.jpeg)
+
+Resources for learning on your own
+========================================================
+[Zero to hero: tutorial from genomics conference](https://zerotorhero.wordpress.com/2014/05/08/ciee-at-genomes-toaux-biomes/)
+
+`swirl()` package teaches you how to use R!
+
+[Short text intro to R](http://umanitoba.ca/outreach/conferences/cseb2016/images/R-intro_VeryShort.pdf) [pdf]
+
+[R reference card](ftp://cran.r-project.org/pub/R/doc/contrib/Short-refcard.pdf) [pdf]
+
+[RStudio cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf) [pdf]
