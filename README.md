@@ -1,2 +1,2 @@
 # R-workshop
-R workshop for the Douglas lab
+R workshop for the Norbert Schmitz lab
