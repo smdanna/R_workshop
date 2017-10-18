@@ -1,4 +1,4 @@
-#### R workshop for Douglas lab ----
+#### R workshop for Norbert Schmitz lab ----
 # sofia m. danna
 # 5 oct 2016
 
