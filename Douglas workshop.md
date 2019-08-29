@@ -313,7 +313,7 @@ Graphics - simple
 ========================================================
 Can be basic...
 
-![plot of chunk unnamed-chunk-15](7Oct16-figure/unnamed-chunk-15-1.png) 
+![and ugly](unnamed-chunk-15-1.png) 
 
 Graphics - complex
 ========================================================
