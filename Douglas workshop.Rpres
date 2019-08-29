@@ -271,6 +271,7 @@ Can be basic...
 ```{r, echo=FALSE}
 plot(cars)
 ```
+![and ugly](unnamed-chunk-15-1.png)
 
 Graphics - complex
 ========================================================
